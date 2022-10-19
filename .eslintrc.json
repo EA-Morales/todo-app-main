@@ -41,8 +41,8 @@
             "warn",
             {
                 "useTabs": true,
-                "singleQuote": true,
-                "jsxSingleQuote": true,
+                "singleQuote": false,
+                "jsxSingleQuote": false,
                 "bracketSameLine": true,
                 "arrowParens": "always",
                 "endOfLine": "auto",
