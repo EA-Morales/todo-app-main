@@ -40,7 +40,8 @@
         "prettier/prettier": [
             "warn",
             {
-                "useTabs": true,
+                "useTabs": false,
+                "printWidth": 80,
                 "singleQuote": false,
                 "jsxSingleQuote": false,
                 "bracketSameLine": true,
