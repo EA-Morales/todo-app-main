@@ -10,12 +10,6 @@ interface Todos {
   completed: boolean;
 }
 
-/* const todos: Todos[] = [
-  { id: Date.now(), title: "aprender javascript", completed: false },
-  { id: Date.now(), title: "hola mundo", completed: false },
-  { id: Date.now(), title: "aprender typescript", completed: true },
-]; */
-
 function App(): JSX.Element {
   const [todos, setTodos] = useState<Todos[]>([]);
   const [title, setTitle] = useState("");
@@ -33,6 +27,14 @@ function App(): JSX.Element {
     const todo = todos.filter((todo) => todo.id !== id);
 
     setTodos(todo);
+  };
+
+  const handleSetCompleted = (id: number): void => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+
+    setTodos(newTodos);
   };
 
   return (
@@ -79,6 +81,7 @@ function App(): JSX.Element {
             key={todo.id}
             completed={todo.completed}
             handleDeleteTodo={handleDeleteTodo}
+            handleSetCompleted={handleSetCompleted}
             id={todo.id}
             title={todo.title}
           />
