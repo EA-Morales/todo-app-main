@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import background from "./assets/images/bg-mobile-light.jpg";
 import Moon from "./assets/icons/Moon";
@@ -12,8 +12,19 @@ interface Todos {
 
 function App(): JSX.Element {
   const [todos, setTodos] = useState<Todos[]>([]);
+  const [filtered, setFiltered] = useState<Todos[]>([]);
   const [title, setTitle] = useState("");
   const [completed, setCompleted] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("cargo el useEffect");
+    const countTodosUncompleted = todos.filter(
+      (todo) => !todo.completed
+    ).length;
+
+    setCount(countTodosUncompleted);
+  }, [todos]);
 
   const handleSubmitTodo = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -35,6 +46,12 @@ function App(): JSX.Element {
     );
 
     setTodos(newTodos);
+  };
+
+  const clearCompleted = (): void => {
+    const clear = todos.filter((todo) => !todo.completed);
+
+    setTodos(clear);
   };
 
   return (
@@ -88,8 +105,8 @@ function App(): JSX.Element {
         ))}
 
         <section className="flex justify-between gap-2 rounded-lg border-b-[1px] border-slate-400 bg-white px-5 py-2 text-slate-400">
-          <p>5 items left</p>
-          <button>Clear Completed</button>
+          <p>{count} items left</p>
+          <button onClick={clearCompleted}>Clear Completed</button>
         </section>
 
         <section className="mt-4 flex justify-center gap-4 rounded-lg border-b-[1px] border-slate-400 bg-white px-5 py-2 text-slate-400">
